@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,5 +43,15 @@ public class ProductRepository {
 		getSession().save(employee);
 
 		return employee;
+	}
+
+	public Employee updateEmployee(Employee employee, long id) {
+
+		Employee emp = getSession().get(Employee.class, id);
+		emp.setId(id);
+		emp.setName(employee.getName());
+
+		getSession().saveOrUpdate(emp);
+		return emp;
 	}
 }
